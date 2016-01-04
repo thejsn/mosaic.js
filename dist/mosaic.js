@@ -321,7 +321,7 @@
 
   		this._colors = [];
 
-  		this._source;
+  		this._target;
   		this._pictures = new Map();
 
   		this._canvas = document.createElement('canvas');
@@ -438,16 +438,16 @@
   		}
 
   		/**
-     * Set source image
+     * Set target image
      * 
-     * @param {Picture} picture Picture object holding the source image.
+     * @param {Picture} picture Picture object holding the target image.
      */
 
   	}, {
-  		key: 'setSource',
-  		value: function setSource(picture) {
+  		key: 'setTarget',
+  		value: function setTarget(picture) {
 
-  			this._source = picture;
+  			this._target = picture;
   			this.drawGrid();
   		}
 
@@ -459,7 +459,7 @@
   		key: 'drawGrid',
   		value: function drawGrid() {
 
-  			var pixels = this._source.getImageData();
+  			var pixels = this._target.getImageData();
 
   			var blending = this._colorBlending,
   			    nearest = undefined,
@@ -942,7 +942,7 @@
   		this._columns = 10;
   		this._rows = 10;
   		this._element;
-  		this._source;
+  		this._target;
   		this._grid = new Grid();
   		this._loader = new ImageLoader();
   		this._canvas = document.createElement('canvas');
@@ -1001,12 +1001,12 @@
 
   				if (child.tagName.toLowerCase() === 'link') {
 
-  					if (child.type === 'grid') {
+  					if (child.type === 'source') {
 
-  						this.addToGridFromURL(child.href);
-  					} else if (child.type === 'source') {
+  						this.addSourceFromURL(child.href);
+  					} else if (child.type === 'target') {
 
-  						this.setSourceFromURL(child.href);
+  						this.setTargetFromURL(child.href);
   					}
   				};
   			};
@@ -1041,9 +1041,9 @@
   		key: '_onLoadStatusChange',
   		value: function _onLoadStatusChange() {
 
-  			if (this._loader.progress == 1 && !!this._source) {
+  			if (this._loader.progress == 1 && !!this._target) {
 
-  				this._grid.setSource(this._source);
+  				this._grid.setTarget(this._target);
   				this.draw();
   			}
   		}
@@ -1148,19 +1148,19 @@
 
   			this._grid.setSize(this._width, this._height, this._columns, this._rows);
 
-  			if (!!this._source && this._grid.poolSize > 0) {
+  			if (!!this._target && this._grid.poolSize > 0) {
 
-  				this._source.setSize(this._columns, this._rows, this.pixelAspectRatio);
+  				this._target.setSize(this._columns, this._rows, this.pixelAspectRatio);
   				this._grid.drawGrid();
   				this.draw();
   			}
   		}
 
   		/**
-     * Set the source image, from URL.
+     * Set the target image, from URL.
      * 
      * @example
-     * mosaic.setSourceFromURL('path/to/image.jpg');
+     * mosaic.setTargetFromURL('path/to/image.jpg');
      * 
      * @public
      * 
@@ -1168,13 +1168,13 @@
      */
 
   	}, {
-  		key: 'setSourceFromURL',
-  		value: function setSourceFromURL(url) {
+  		key: 'setTargetFromURL',
+  		value: function setTargetFromURL(url) {
   			var _this = this;
 
   			this._loader.load(url).then(function (image) {
 
-  				_this.setSourceImage(image);
+  				_this.setTargetImage(image);
   			}).catch(function (error) {
 
   				console.warn('[mosaic.js] Error loading ' + url + ':', error);
@@ -1188,7 +1188,7 @@
      * var image = new Image()
      * image.src = 'http://path/to/image.jpg'
      * image.onLoad = function() {
-     * 	mosaic.setSourceImage(image)
+     * 	mosaic.setTargetImage(image)
      * }
      * 
      * @public
@@ -1197,10 +1197,10 @@
      */
 
   	}, {
-  		key: 'setSourceImage',
-  		value: function setSourceImage(image) {
+  		key: 'setTargetImage',
+  		value: function setTargetImage(image) {
 
-  			this._source = new Picture(image, this._columns, this._rows, this.pixelAspectRatio);
+  			this._target = new Picture(image, this._columns, this._rows, this.pixelAspectRatio);
 
   			this._onLoadStatusChange();
   		}
@@ -1209,7 +1209,7 @@
      * Add image to be used in the grid from URL.
      * 
      * @example
-     * mosaic.addToGridFromURL('path/to/image.jpg');
+     * mosaic.addSourceFromURL('path/to/image.jpg');
      * 
      * @public
      * 
@@ -1217,20 +1217,20 @@
      */
 
   	}, {
-  		key: 'addToGridFromURL',
-  		value: function addToGridFromURL(url) {
+  		key: 'addSourceFromURL',
+  		value: function addSourceFromURL(url) {
   			var _this2 = this;
 
   			this._loader.load(url).then(function (image) {
 
-  				_this2.addToGrid(image);
+  				_this2.addSource(image);
   			}).catch(function (error) {
 
   				console.warn('[mosaic.js] Error loading ' + url + ':', error);
   			}).then(function () {
   				if (_this2._loader.progress == 1) {
 
-  					// console.log('[mosaic.js] All grid images loaded');
+  					// console.log('[mosaic.js] All source images loaded');
   					_this2._onLoadStatusChange();
   				} else {
   					var p = Math.round(_this2._loader.progress * 100);
@@ -1246,7 +1246,7 @@
      * var image = new Image()
      * image.src = 'http://path/to/image.jpg'
      * image.onLoad = function() {
-     * 	mosaic.addToGrid(image)
+     * 	mosaic.addSource(image)
      * }
      * 
      * @public
@@ -1255,8 +1255,8 @@
      */
 
   	}, {
-  		key: 'addToGrid',
-  		value: function addToGrid(image) {
+  		key: 'addSource',
+  		value: function addSource(image) {
 
   			var picture = new Picture(image, Math.floor(this._width / this._columns), Math.floor(this._height / this._rows));
 

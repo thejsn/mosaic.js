@@ -51,7 +51,7 @@ export default class Mosaic {
 		this._columns = 10;
 		this._rows = 10;
 		this._element;
-		this._source;
+		this._target;
 		this._grid = new Grid();
 		this._loader = new ImageLoader();
 		this._canvas = document.createElement('canvas');
@@ -203,13 +203,13 @@ export default class Mosaic {
 			
 			if (child.tagName.toLowerCase() === 'link') {
 				
-				if(child.type === 'grid') {
+				if(child.type === 'source') {
 					
-					this.addToGridFromURL(child.href);
+					this.addSourceFromURL(child.href);
 					
-				} else if(child.type === 'source') {
+				} else if(child.type === 'target') {
 					
-					this.setSourceFromURL(child.href);
+					this.setTargetFromURL(child.href);
 				}
 			};
 		};
@@ -247,9 +247,9 @@ export default class Mosaic {
 	 */
 	_onLoadStatusChange() {
 		
-		if (this._loader.progress == 1 && !!this._source) {
+		if (this._loader.progress == 1 && !!this._target) {
 			
-			this._grid.setSource(this._source);
+			this._grid.setTarget(this._target);
 			this.draw();
 		}
 	}
@@ -350,9 +350,9 @@ export default class Mosaic {
 		
 		this._grid.setSize(this._width, this._height, this._columns, this._rows);
 		
-		if (!!this._source && this._grid.poolSize > 0) {
+		if (!!this._target && this._grid.poolSize > 0) {
 			
-			this._source.setSize(this._columns, this._rows, this.pixelAspectRatio);
+			this._target.setSize(this._columns, this._rows, this.pixelAspectRatio);
 			this._grid.drawGrid();
 			this.draw();
 		}
@@ -360,21 +360,21 @@ export default class Mosaic {
 	
 	
 	/**
-	 * Set the source image, from URL.
+	 * Set the target image, from URL.
 	 * 
 	 * @example
-	 * mosaic.setSourceFromURL('path/to/image.jpg');
+	 * mosaic.setTargetFromURL('path/to/image.jpg');
 	 * 
 	 * @public
 	 * 
 	 * @param {String} url Path to image
 	 */
-	setSourceFromURL(url) {
+	setTargetFromURL(url) {
 		
 		this._loader.load(url)
 			.then(image => {
 				
-				this.setSourceImage(image);
+				this.setTargetImage(image);
 				
 			})
 			.catch(error => {
@@ -396,16 +396,16 @@ export default class Mosaic {
 	 * var image = new Image()
 	 * image.src = 'http://path/to/image.jpg'
 	 * image.onLoad = function() {
-	 * 	mosaic.setSourceImage(image)
+	 * 	mosaic.setTargetImage(image)
 	 * }
 	 * 
 	 * @public
 	 * 
 	 * @param  {Image} image
 	 */
-	setSourceImage(image) {
+	setTargetImage(image) {
 		
-		this._source = new Picture(
+		this._target = new Picture(
 			image, 
 			this._columns,
 			this._rows,
@@ -421,18 +421,18 @@ export default class Mosaic {
 	 * Add image to be used in the grid from URL.
 	 * 
 	 * @example
-	 * mosaic.addToGridFromURL('path/to/image.jpg');
+	 * mosaic.addSourceFromURL('path/to/image.jpg');
 	 * 
 	 * @public
 	 * 
 	 * @param {String} url Path to image
 	 */
-	addToGridFromURL(url) {
+	addSourceFromURL(url) {
 		
 		this._loader.load(url)
 			.then(image => {
 				
-				this.addToGrid(image);
+				this.addSource(image);
 				
 			})
 			.catch(error => {
@@ -443,7 +443,7 @@ export default class Mosaic {
 			.then(() => {
 				if (this._loader.progress == 1) {
 					
-					// console.log('[mosaic.js] All grid images loaded');
+					// console.log('[mosaic.js] All source images loaded');
 					this._onLoadStatusChange();
 					
 				} else {
@@ -462,14 +462,14 @@ export default class Mosaic {
 	 * var image = new Image()
 	 * image.src = 'http://path/to/image.jpg'
 	 * image.onLoad = function() {
-	 * 	mosaic.addToGrid(image)
+	 * 	mosaic.addSource(image)
 	 * }
 	 * 
 	 * @public
 	 * 
 	 * @param  {Image} image 
 	 */
-	addToGrid(image) {
+	addSource(image) {
 		
 		let picture = new Picture(
 			image, 

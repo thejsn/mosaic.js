@@ -13,7 +13,7 @@ export default class Grid {
 		
 		this._colors = [];
 		
-		this._source;
+		this._target;
 		this._pictures = new Map();
 		
 		this._canvas = document.createElement('canvas');
@@ -142,13 +142,13 @@ export default class Grid {
 	
 	
 	/**
-	 * Set source image
+	 * Set target image
 	 * 
-	 * @param {Picture} picture Picture object holding the source image.
+	 * @param {Picture} picture Picture object holding the target image.
 	 */
-	setSource(picture) {
+	setTarget(picture) {
 		
-		this._source = picture;
+		this._target = picture;
 		this.drawGrid();
 	}
 	
@@ -159,7 +159,7 @@ export default class Grid {
 	 */
 	drawGrid() {
 		
-		let pixels = this._source.getImageData();
+		let pixels = this._target.getImageData();
 		
 		let blending = this._colorBlending,
 			nearest,

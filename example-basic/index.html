@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<title>mosaic.js | example</title>
+	
+	<link rel="stylesheet" type="text/css" href="../base.css">
+</head>
+<body>
+	
+	<div class="content">
+		<h1>Basic usage</h1>
+		
+		<p>First, create an element to hold the mosaic.</p>
+		<pre>&lt;span id=&quot;imagemosaic&quot;&gt;&lt;/span&gt;</pre>
+		
+		<p>Then either setup with javascript:</p>
+		
+		<pre>
+var mosaic = new Mosaic(document.getElementById('imagemosaic'));
+
+// Set dimensions etc.
+mosaic.setSize(400, 400, 10, 10);
+mosaic.colorBlending = 0.5;
+
+// Add image
+mosaic.addSourceFromURL('images/1.jpg');
+
+// add more images...
+// mosaic.addSourceFromURL('images/n.jpg');
+
+// Set a target image
+mosaic.setTargetFromURL('images/1.jpg');</pre>
+		
+		<span id="imagemosaic-1"></span>
+		
+		<p>Or setup with HTML:</p>
+		
+		<pre>	
+&lt;span id=&quot;imagemosaic&quot; 
+	mosaic-columns=&quot;40&quot; 
+	mosaic-rows=&quot;40&quot; 
+	mosaic-width=&quot;400&quot; 
+	mosaic-height=&quot;400&quot;
+	mosaic-colorblending=&quot;0.5&quot;&gt;
+	
+	&lt;link type=&quot;source&quot; href=&quot;images/1.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/2.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/3.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/4.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/5.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/6.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/7.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/8.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/9.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/10.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/11.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/12.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/13.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/14.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/15.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/16.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/17.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/18.jpg&quot;&gt;
+	&lt;link type=&quot;source&quot; href=&quot;images/19.jpg&quot;&gt;
+	
+	&lt;link type=&quot;target&quot; href=&quot;images/1.jpg&quot;&gt;
+&lt;/span&gt;
+		</pre>
+		<pre>&lt;script src=&quot;../scripts/basic-example.js&quot;&gt;&lt;/script&gt;</pre>
+		<pre>new Mosaic(document.getElementById('imagemosaic')); // Must be created</pre>
+		
+		<span id="imagemosaic-2" 
+			mosaic-columns="40" 
+			mosaic-rows="40" 
+			mosaic-width="400" 
+			mosaic-height="400"
+			mosaic-colorblending="0.5">
+			
+			<link type="source" href="../images/1.jpg">
+			<link type="source" href="../images/2.jpg">
+			<link type="source" href="../images/3.jpg">
+			<link type="source" href="../images/4.jpg">
+			<link type="source" href="../images/5.jpg">
+			<link type="source" href="../images/6.jpg">
+			<link type="source" href="../images/7.jpg">
+			<link type="source" href="../images/8.jpg">
+			<link type="source" href="../images/9.jpg">
+			
+			<link type="source" href="../images/10.jpg">
+			<link type="source" href="../images/11.jpg">
+			<link type="source" href="../images/12.jpg">
+			<link type="source" href="../images/13.jpg">
+			<link type="source" href="../images/14.jpg">
+			<link type="source" href="../images/15.jpg">
+			<link type="source" href="../images/16.jpg">
+			<link type="source" href="../images/17.jpg">
+			<link type="source" href="../images/18.jpg">
+			<link type="source" href="../images/19.jpg">
+			
+			<link type="target" href="../images/1.jpg">
+		</span>
+	</div>
+	
+	<script type="text/javascript" src="../scripts/basic-example.js"></script>
+</body>
+</html>

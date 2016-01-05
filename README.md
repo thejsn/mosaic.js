@@ -5,8 +5,8 @@ Mosaic.js is a small library for generating an [image mosaic](https://en.wikiped
 
 ## Download
 
-* CommonJS version (Browserify / WebPack) - [dev](https://github.com/thejsn/mosaic.js/blob/master/dist/mosaic.js) | [min](https://github.com/thejsn/mosaic.js/blob/master/dist/mosaic.min.js)
-* Standalone (No build step) - [dev](https://github.com/thejsn/mosaic.js/blob/master/dist/mosaic-standalone.js) | [min](https://github.com/thejsn/mosaic.js/blob/master/dist/mosaic-standalone.min.js)
+* CommonJS version (Browserify / WebPack) - [dev](https://raw.github.com/thejsn/mosaic.js/master/dist/mosaic.js) | [min](https://raw.github.com/thejsn/mosaic.js/master/dist/mosaic.min.js)
+* Standalone (No build step) - [dev](https://raw.github.com/thejsn/mosaic.js/master/dist/mosaic-standalone.js) | [min](https://raw.github.com/thejsn/mosaic.js/master/dist/mosaic-standalone.min.js)
 
 
 ## Basic usage

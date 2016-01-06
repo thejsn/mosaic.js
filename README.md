@@ -2,6 +2,9 @@
 
 Mosaic.js is a small library for generating an [image mosaic](https://en.wikipedia.org/wiki/Photographic_mosaic) using a HTML5 canvas element.
 
+## Examples
+
+See examples [here](http://thejsn.github.io/mosaic.js/).
 
 ## Download
 
